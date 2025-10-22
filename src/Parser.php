@@ -51,7 +51,7 @@ class Parser
 		$supportedLanguages = ['en', 'es', 'de', 'fr', 'it', 'nb', 'tr'];
 		
     	if (!in_array($language, $supportedLanguages)) {
-    		throw new \InvalidArgumentException('Language must be one of ' . join(', ', $supportedLanguages));
+    		throw new \InvalidArgumentException('Language must be one of ' . implode(', ', $supportedLanguages));
     	}
     
         $this->encoder = new ONIXEncoder();

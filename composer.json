@@ -7,12 +7,18 @@
         {
             "name": "Chris Ribal",
             "email": "c.ribal@ribal-webentwicklung.de"
+        },
+        {
+          "name": "Alex Schwarz",
+          "email": "alexschwarz@live.de"
         }
     ],
     "require": {
-        "symfony/serializer": "^5.4",
-        "symfony/property-info": "^5.4",
-        "symfony/property-access": "^5.4"
+        "symfony/serializer": "^7.3",
+        "symfony/property-info": "^7.3",
+        "symfony/property-access": "^7.3",
+        "ext-dom": "*",
+        "php": ">=8.2"
     },
     "autoload": {
         "psr-4": {

@@ -10,12 +10,12 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 class DateNormalizer implements NormalizerInterface, DenormalizerInterface
 {
 
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array|bool|string|int|float|null|\ArrayObject
     {
         return $object->formatOnix();
     }
 
-    public function denormalize($data, $type, $format = null, array $context = [])
+    public function denormalize($data, $type, $format = null, array $context = []): mixed
     {
         $date = Date::parse(
             is_array($data) ? $data['#'] : $data,
@@ -25,14 +25,20 @@ class DateNormalizer implements NormalizerInterface, DenormalizerInterface
         return $date;
     }
 
-    public function supportsNormalization($data, $format = null)
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
         return $data instanceof Date;
     }
 
-    public function supportsDenormalization($data, $type, $format = null)
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
         return $type == Date::class;
     }
 
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            Date::class => true,
+        ];
+    }
 }
