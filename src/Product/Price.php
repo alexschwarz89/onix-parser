@@ -82,6 +82,23 @@ class Price
     protected $Territory;
 
     /**
+     * PriceDate
+     *
+     * @var PriceDate
+     */
+    protected ?PriceDate $PriceDate = null;
+
+    public function setPriceDate(?PriceDate $PriceDate)
+    {
+        $this->PriceDate = $PriceDate;
+    }
+
+    public function getPriceDate(): ?PriceDate
+    {
+        return $this->PriceDate;
+    }
+
+    /**
      * Set PriceType
      *
      * @param CodeList58 $PriceType
