@@ -82,6 +82,13 @@ class DescriptiveDetail
     protected $ContributorStatement;
 
     /**
+     * IllustrationsNote
+     *
+     * @var string
+     */
+    protected $IllustrationsNote;
+
+    /**
      * EditionNumber
      *
      * @var int
@@ -491,6 +498,27 @@ class DescriptiveDetail
     public function getContributorStatement()
     {
         return $this->ContributorStatement;
+    }
+
+    /**
+     * Set IllustrationsNote
+     *
+     * @param string $IllustrationsNote
+     * @return void
+     */
+    public function setIllustrationsNote(string $IllustrationsNote)
+    {
+        $this->IllustrationsNote = $IllustrationsNote;
+    }
+
+    /**
+     * Get IllustrationsNote
+     *
+     * @return string
+     */
+    public function getIllustrationsNote()
+    {
+        return $this->IllustrationsNote;
     }
 
     /**
