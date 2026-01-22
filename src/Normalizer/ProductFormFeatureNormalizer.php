@@ -41,26 +41,29 @@ class ProductFormFeatureNormalizer implements NormalizerInterface, DenormalizerI
     {
         $feature = new ProductFormFeature();
 
-        if (isset($data['ProductFormFeatureType'])) {
-            $typeCode = is_array($data['ProductFormFeatureType']) ? ($data['ProductFormFeatureType']['#'] ?? null) : $data['ProductFormFeatureType'];
+        $productFormFeatureType = $data['ProductFormFeatureType'] ?? $data['b334'] ?? null;
+        if ($productFormFeatureType) {
+            $typeCode = is_array($productFormFeatureType) ? ($productFormFeatureType['#'] ?? null) : $productFormFeatureType;
             if ($typeCode) {
                 $featureType = CodeList79::resolve($typeCode, $this->language);
                 $feature->setProductFormFeatureType($featureType);
             }
         }
 
-        if (isset($data['ProductFormFeatureDescription'])) {
-            $feature->setProductFormFeatureDescription($data['ProductFormFeatureDescription']);
+        $productFormFeatureDescription = $data['ProductFormFeatureDescription'] ?? $data['b336'] ?? null;
+        if ($productFormFeatureDescription) {
+            $feature->setProductFormFeatureDescription($productFormFeatureDescription);
         }
 
-        if (isset($data['ProductFormFeatureValue'])) {
-            $valueCode = is_array($data['ProductFormFeatureValue']) ? ($data['ProductFormFeatureValue']['#'] ?? null) : $data['ProductFormFeatureValue'];
+        $productFormFeatureValue = $data['ProductFormFeatureValue'] ?? $data['b335'] ?? null;
+        if ($productFormFeatureValue) {
+            $valueCode = is_array($productFormFeatureValue) ? ($productFormFeatureValue['#'] ?? null) : $productFormFeatureValue;
             
             if ($valueCode) {
                 $typeCode = $feature->getProductFormFeatureType() ? $feature->getProductFormFeatureType()->getCode() : null;
                 
-                // If Type is 09 (E-publication accessibility detail), use CodeList 196
-                if ($typeCode === '09') {
+                // If Type is 09 (E-publication accessibility detail), 11 (E-publication accessibility compliance) or 12 (E-publication accessibility compliance code), use CodeList 196
+                if (in_array($typeCode, ['09', '11', '12'])) {
                     $feature->setProductFormFeatureValue(CodeList196::resolve($valueCode, $this->language));
                 } else {
                     $feature->setProductFormFeatureValue(CodeList98::resolve($valueCode, $this->language));
