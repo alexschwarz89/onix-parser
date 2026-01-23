@@ -8,7 +8,7 @@ use Ribal\Onix\Text;
 class Contributor
 {
 
-	private const CODE_AUTHOR = 'A01';
+    private const CODE_AUTHOR = 'A01';
 
     /**
      * SequenceNumber
@@ -16,6 +16,13 @@ class Contributor
      * @var int
      */
     protected $SequenceNumber;
+
+    /**
+     * Website
+     *
+     * @var Website
+     */
+    protected $Website;
 
     /**
      * ContributorRole
@@ -208,4 +215,13 @@ class Contributor
         return $this->ContributorRole->getCode() === self::CODE_AUTHOR;
     }
 
+    public function getWebsite(): ?Website
+    {
+        return $this->Website;
+    }
+
+    public function setWebsite(?Website $Website): void
+    {
+        $this->Website = $Website;
+    }
 }
