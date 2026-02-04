@@ -4,6 +4,7 @@ namespace Ribal\Onix\Product;
 
 use Ribal\Onix\CodeList\CodeList;
 use Ribal\Onix\CodeList\CodeList173;
+use Ribal\Onix\Date;
 
 class PriceDate
 {
@@ -15,39 +16,21 @@ class PriceDate
     protected CodeList $PriceDateRole;
 
     /**
-     * @var string|null YYYYMMDD or YYYY
+     * @var Date|null
      */
-    protected ?string $Date = null;
-
-    /**
-     * @var string|null ONIX dateformat code (attribute of b306)
-     */
-    protected ?string $DateFormat = null;
+    protected ?Date $Date = null;
 
     /**
      * Set Date (b306)
      */
-    public function setDate(string $date): void
+    public function setDate(Date $date): void
     {
         $this->Date = $date;
     }
 
-    public function getDate(): ?string
+    public function getDate(): ?Date
     {
         return $this->Date;
-    }
-
-    /**
-     * Set DateFormat (b306@dateformat)
-     */
-    public function setDateFormat(?string $format): void
-    {
-        $this->DateFormat = $format;
-    }
-
-    public function getDateFormat(): ?string
-    {
-        return $this->DateFormat;
     }
 
     /**
