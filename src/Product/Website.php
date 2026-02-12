@@ -12,14 +12,32 @@ class Website
      *
      * @var CodeList
      */
-    protected $WebsiteRole;
+    protected $WebsiteRole = '';
 
     /**
      * WebsiteLink
      *
      * @var string
      */
-    protected $WebsiteLink;
+    protected $WebsiteLink = '';
+
+    /**
+     * WebsiteDescription
+     *
+     * @var string
+     */
+    protected $WebsiteDescription = '';
+
+    public function getWebsiteDescription(): string
+    {
+        return $this->WebsiteDescription;
+    }
+
+    public function setWebsiteDescription(string $WebsiteDescription): Website
+    {
+        $this->WebsiteDescription = $WebsiteDescription;
+        return $this;
+    }
 
     /**
      * Set WebsiteRole

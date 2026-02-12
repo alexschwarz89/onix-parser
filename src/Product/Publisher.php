@@ -29,11 +29,11 @@ class Publisher
     protected $PublisherName;
 
     /**
-     * Website
+     * Publisher Websites
      *
-     * @var Website
+     * @var Website[]
      */
-    protected $Website;
+    protected $Website= [];
 
     /**
      * Set PublishingRole
@@ -89,9 +89,20 @@ class Publisher
      * @param Website $Website
      * @return void
      */
-    public function setWebsite(Website $Website)
+    public function addWebsite(Website $Website)
     {
-        $this->Website = $Website;
+        $this->Website[] = $Website;
+    }
+
+    /**
+     * Removes a Website from collection
+     *
+     * @param Website $website
+     * @return void
+     */
+    public function removeWebsite(Website $website)
+    {
+
     }
 
     /**
@@ -127,9 +138,19 @@ class Publisher
     /**
      * Get Website
      *
-     * @return Website
+     * @return array
      */
     public function getWebsite()
+    {
+        return $this->Website;
+    }
+
+    /**
+     * Get Website
+     *
+     * @return array
+     */
+    public function getWebsites()
     {
         return $this->Website;
     }
