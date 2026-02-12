@@ -9,6 +9,8 @@ class Contributor
 {
 
     private const CODE_AUTHOR = 'A01';
+    private const CODE_EDITOR = 'B01';
+    private const CODE_REVISOR = 'B02';
 
     /**
      * SequenceNumber
@@ -16,13 +18,6 @@ class Contributor
      * @var int
      */
     protected $SequenceNumber;
-
-    /**
-     * Website
-     *
-     * @var Website
-     */
-    protected $Website;
 
     /**
      * ContributorRole
@@ -58,6 +53,15 @@ class Contributor
      * @var string
      */
     protected $KeyNames;
+
+
+
+    /**
+     * Publisher Websites
+     *
+     * @var Website[]
+     */
+    protected $Website = [];
 
     /**
      * Set SequenceNumber
@@ -212,16 +216,53 @@ class Contributor
      */
     public function isAuthor()
     {
+        return match ($this->ContributorRole->getCode()) {
+            self::CODE_AUTHOR, self::CODE_EDITOR, self::CODE_REVISOR => true,
+            default => false,
+        };
         return $this->ContributorRole->getCode() === self::CODE_AUTHOR;
     }
 
-    public function getWebsite(): ?Website
+    /**
+     * Set Website
+     *
+     * @param Website $Website
+     * @return void
+     */
+    public function addWebsite(Website $Website)
+    {
+        $this->Website[] = $Website;
+    }
+
+    /**
+     * Removes a Website from collection
+     *
+     * @param Website $website
+     * @return void
+     */
+    public function removeWebsite(Website $website)
+    {
+
+    }
+
+    /**
+     * Get Website
+     *
+     * @return array
+     */
+    public function getWebsite()
     {
         return $this->Website;
     }
 
-    public function setWebsite(?Website $Website): void
+    /**
+     * Get Website
+     *
+     * @return array
+     */
+    public function getWebsites()
     {
-        $this->Website = $Website;
+        return $this->Website;
     }
+
 }
