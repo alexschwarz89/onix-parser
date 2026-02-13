@@ -248,9 +248,12 @@ class SupportingResource
      */
     public function getLinkDescription()
     {
-        $links = array_filter($this->ResourceFeature, function ($resourceFeature) {
+        $links = array_values(array_filter($this->ResourceFeature, function ($resourceFeature) {
             return $resourceFeature->getResourceFeatureType()->getCode() === self::TYPE_FEATURE_LINKTEXT;
-        });
+        }));
+        if(!isset($links[0])) {
+            return '';
+        }
         return $links[0]?->getFeatureNote();
     }
 
@@ -261,10 +264,12 @@ class SupportingResource
      */
     public function getCopyrightNote()
     {
-        $links = array_filter($this->ResourceFeature, function ($resourceFeature) {
+        $links = array_values(array_filter($this->ResourceFeature, function ($resourceFeature) {
             return $resourceFeature->getResourceFeatureType()->getCode() === self::TYPE_COPYRIGHT_NOTE;
-        });
-
+        }));
+        if(!isset($links[0])) {
+            return '';
+        }
         return $links[0]?->getFeatureNote();
     }
 
