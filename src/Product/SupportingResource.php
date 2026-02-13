@@ -5,15 +5,19 @@ namespace Ribal\Onix\Product;
 use Ribal\Onix\CodeList\CodeList154;
 use Ribal\Onix\CodeList\CodeList158;
 use Ribal\Onix\CodeList\CodeList159;
+use Ribal\Onix\CodeList\CodeList160;
 
 class SupportingResource
 {
 
-	private const TYPE_FRONTCOVER = '01';
-	private const TYPE_BACKCOVER = '02';
-	
-	private const MODE_IMAGE = '03';
-	
+    private const TYPE_FRONTCOVER = '01';
+    private const TYPE_BACKCOVER = '02';
+    private const TYPE_INSTRUCTIONAL = '39';
+
+    private const MODE_IMAGE = '03';
+
+    private const TYPE_FEATURE_LINKTEXT = '02';
+    private const TYPE_COPYRIGHT_NOTE = '03';
 
     /**
      * ResourceContentType
@@ -42,6 +46,55 @@ class SupportingResource
      * @var ResourceVersion
      */
     protected $ResourceVersion;
+
+
+    /**
+     * ResourceFeature
+     *
+     * @var ResourceFeature[]
+     */
+    protected array $ResourceFeature = [];
+
+    /**
+     * Add a new ResourceFeature
+     *
+     * @param ResourceFeature $ResourceFeature
+     * @return void
+     */
+    public function addResourceFeature(ResourceFeature $ResourceFeature)
+    {
+        $this->ResourceFeature[] = $ResourceFeature;
+    }
+
+    /**
+     * Remove ResourceFeature
+     *
+     * @param ResourceFeature $ResourceFeature
+     * @return void
+     */
+    public function removeResourceFeature(ResourceFeature $ResourceFeature)
+    {
+    }
+
+    /**
+     * Get ResourceFeatures
+     *
+     * @return array
+     */
+    public function getResourceFeature()
+    {
+        return $this->ResourceFeature;
+    }
+
+    /**
+     * Get ResourceFeatures
+     *
+     * @return array
+     */
+    public function getResourceFeatures()
+    {
+        return $this->ResourceFeature;
+    }
 
     /**
      * Set ResourceContentType
@@ -156,7 +209,17 @@ class SupportingResource
     {
     	return $this->ResourceMode->getCode() === self::MODE_IMAGE;
     }
-    
+
+    /**
+     * Check, if the Resource is a link to additional material
+     *
+     * @return boolean
+     */
+    public function isInstructional()
+    {
+        return $this->ResourceContentType->getCode() === self::TYPE_INSTRUCTIONAL;
+    }
+
     /**
      * Get the link to a file or resource
      *
@@ -164,9 +227,36 @@ class SupportingResource
      */
     public function getLink()
     {
-    	if ($this->ResourceVersion && $this->ResourceVersion->hasLink()) {
-    		return $this->ResourceVersion->getResourceLink();
-    	}
+        if ($this->ResourceVersion && $this->ResourceVersion->hasLink()) {
+            return $this->ResourceVersion->getResourceLink();
+        }
+    }
+
+    /**
+     * Get the link description
+     *
+     * @return string
+     */
+    public function getLinkDescription()
+    {
+        $links = array_filter($this->ResourceFeature, function ($resourceFeature) {
+            return $resourceFeature->getResourceFeatureType()->getCode() === self::TYPE_FEATURE_LINKTEXT;
+        });
+        return $links[0]?->getFeatureNote();
+    }
+
+    /**
+     * Get the link copyright note
+     *
+     * @return string
+     */
+    public function getCopyrightNote()
+    {
+        $links = array_filter($this->ResourceFeature, function ($resourceFeature) {
+            return $resourceFeature->getResourceFeatureType()->getCode() === self::TYPE_COPYRIGHT_NOTE;
+        });
+
+        return $links[0]?->getFeatureNote();
     }
 
 }

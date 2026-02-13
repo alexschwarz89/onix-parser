@@ -179,4 +179,16 @@ class CollateralDetail
 		});
 	}
 
+    /**
+     * Get the front cover resource, if set
+     *
+     * @return SupportingResource[]|array
+     */
+    public function getInstructionalResources()
+    {
+        return array_filter($this->SupportingResource, function($resource) {
+            return $resource->isInstructional();
+        });
+    }
+
 }
