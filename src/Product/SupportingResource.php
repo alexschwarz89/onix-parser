@@ -5,7 +5,6 @@ namespace Ribal\Onix\Product;
 use Ribal\Onix\CodeList\CodeList154;
 use Ribal\Onix\CodeList\CodeList158;
 use Ribal\Onix\CodeList\CodeList159;
-use Ribal\Onix\CodeList\CodeList160;
 
 class SupportingResource
 {
@@ -13,6 +12,7 @@ class SupportingResource
     private const TYPE_FRONTCOVER = '01';
     private const TYPE_BACKCOVER = '02';
     private const TYPE_INSTRUCTIONAL = '39';
+    private const TYPE_TRAILER = '26';
 
     private const MODE_IMAGE = '03';
 
@@ -218,6 +218,15 @@ class SupportingResource
     public function isInstructional()
     {
         return $this->ResourceContentType->getCode() === self::TYPE_INSTRUCTIONAL;
+    }
+
+    /**
+     * Check, if the Resource is a trailer link
+     *
+     * @return boolean
+     */    public function isTrailer()
+    {
+        return $this->ResourceContentType->getCode() === self::TYPE_TRAILER;
     }
 
     /**
