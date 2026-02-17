@@ -11,8 +11,9 @@ class SupportingResource
 
     private const TYPE_FRONTCOVER = '01';
     private const TYPE_BACKCOVER = '02';
-    private const TYPE_INSTRUCTIONAL = '39';
+    private const TYPE_AUTHOR = '04';
     private const TYPE_TRAILER = '26';
+    private const TYPE_INSTRUCTIONAL = '39';
 
     private const MODE_IMAGE = '03';
 
@@ -199,7 +200,17 @@ class SupportingResource
     {
    		return $this->ResourceContentType->getCode() == self::TYPE_BACKCOVER;
     }
-    
+
+    /**
+     * Check, if the Resource is a book front cover
+     *
+     * @return boolean
+     */
+    public function isAuthorImage()
+    {
+        return $this->ResourceContentType->getCode() == self::TYPE_AUTHOR;
+    }
+
     /**
      * Check, if the Resource is an image
      *
@@ -224,7 +235,8 @@ class SupportingResource
      * Check, if the Resource is a trailer link
      *
      * @return boolean
-     */    public function isTrailer()
+     */
+    public function isTrailer()
     {
         return $this->ResourceContentType->getCode() === self::TYPE_TRAILER;
     }
@@ -251,7 +263,7 @@ class SupportingResource
         $links = array_values(array_filter($this->ResourceFeature, function ($resourceFeature) {
             return $resourceFeature->getResourceFeatureType()->getCode() === self::TYPE_FEATURE_LINKTEXT;
         }));
-        if(!isset($links[0])) {
+        if (!isset($links[0])) {
             return '';
         }
         return $links[0]?->getFeatureNote();
@@ -267,7 +279,7 @@ class SupportingResource
         $links = array_values(array_filter($this->ResourceFeature, function ($resourceFeature) {
             return $resourceFeature->getResourceFeatureType()->getCode() === self::TYPE_COPYRIGHT_NOTE;
         }));
-        if(!isset($links[0])) {
+        if (!isset($links[0])) {
             return '';
         }
         return $links[0]?->getFeatureNote();
